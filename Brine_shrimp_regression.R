@@ -23,7 +23,7 @@ View(df)
 # scatter plot
 
 ggplot(df, aes(x= concentration, y= `% mortality`)) + 
-  geom_point() + geom_smooth()
+  geom_point() 
 
 # fitted regression 
 # linear model
@@ -101,8 +101,7 @@ View(df2)
 
 # scatter plot
 
-ggplot(df2, aes(x= concentration, y= `% mortality`)) + 
-  geom_point() + geom_smooth()
+ggplot(df2, aes(x= concentration, y= `% mortality`)) + geom_point()
 
 # fitted regression 
 # linear model
@@ -113,7 +112,7 @@ summary(Brine_shrimp_model_df12)
 # quadratic model 
 df2$concentration2 <- df2$concentration*df2$concentration
 
-Brine_shrimp_model_df22 <- lm(`% mortality`~ concentration + concentration22, data = df2)
+Brine_shrimp_model_df22 <- lm(`% mortality`~ concentration + concentration2, data = df2)
 summary(Brine_shrimp_model_df22)
 
 # third order - best model
@@ -150,7 +149,7 @@ f = function(x){
   11.58 + 0.06967*x - 0.00009572*x^2 + 0.00000004956*x^3 - 50
 }
 
-plot(x, f(x), type = 'l')
+plot(x, f(x), type = 'l', main = "IC50 value")
 abline(h=0, col="blue")
 
 IC50 = uniroot.all(f, c(0, 1500))
