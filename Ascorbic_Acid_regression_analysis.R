@@ -58,7 +58,7 @@ DPPH_Ascorbic_Acid %>% ggplot(aes(x = concentration,
 # lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
 
 
-######################## ORDER 3 ###########################
+######################## ORDER 3 - BEST MODEL ###########################
 
 
 DPPH_Ascorbic_Acid$concentration2 <- DPPH_Ascorbic_Acid$concentration^2
@@ -75,7 +75,7 @@ predictedcounts <- predict(AA_regression_model3,
 plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
      pch=16, ylim = c(0,100), main = "Fitted regression line",
      xlab = "concentration(µg/ml)", ylab = "scavenging activity", cex.lab = 1.3, 
-     col = "blue") + stat_regline_equation(label.x=30, label.y=310)
+     col = "blue") 
 
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
