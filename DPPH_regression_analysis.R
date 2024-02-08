@@ -74,14 +74,23 @@ f = function(x){
 plot(x, f(x), type = 'l')
 abline(h=0, col="blue")
 
-roots = uniroot.all(f, c(0, 200))
-roots
+IC50 = uniroot.all(f, c(0, 200))
+IC50
 # 116.4831
 
 # graphing the roots
-points(x = roots, y = rep(0, length(roots)), col = "red", pch = 16, cex = 1.5)
+points(x = IC50, y = rep(0, length(IC50)), col = "red", pch = 16, cex = 1.5)
 
 
+# Plot the IC50 value in the graph
+plot(DPPH$concentration, DPPH$`scavenging activity`,
+     pch=16, ylim = c(0,100),
+     xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
+     col = "black")
+
+lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
+abline(h = 50, col = 'blue')
+points(x = IC50, y = 50, col = "red", pch = 16)
 
 
 

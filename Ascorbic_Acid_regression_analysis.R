@@ -116,8 +116,6 @@ shapiro.test(model3_fitresid$.std.resid)
 # 0 = - 45.699 + 5.436concentration - 0.1094concentration^2 + 0.0006273concentration^3
 
 
-
-
 # writing the function
 f2 = function(concentration) {
   5.436*concentration - 0.1094*concentration^2 + 0.0006273*concentration^3 - 45.699
@@ -143,21 +141,5 @@ plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
 abline(h = 50, col = 'blue')
 points(x = IC50, y = 50, col = "red", pch = 16)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

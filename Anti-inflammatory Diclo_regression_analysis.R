@@ -27,7 +27,6 @@ plot(Anti_inflammatory_diclo$concentration, Anti_inflammatory_diclo$inhibition,
      col = "blue")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
-abline(h=50, col="red")
 
 
 # Residual Analysis 
@@ -56,19 +55,28 @@ shapiro.test(model_fitresid$.std.resid)
 
 
 # Calculation of IC50 value
-x = seq(0,1500,by=0.01)
 
 f = function(x){
   7.1451 + 0.0455*x - 50
 }
 
+x = seq(0,1500,by=0.01)
 plot(x, f(x), type = 'l')
 abline(h=0, col="blue")
 
-roots = uniroot.all(f, c(600, 1200))
-roots
+IC50 = uniroot.all(f, c(600, 1200))
+IC50
 # 941.8659
 
-# graphing the roots
-points(x = roots, y = rep(0, length(roots)), col = "red", pch = 16, cex = 1.5)
+# graphing the IC50
+# Plot the IC50 value in the graph
+
+plot(Anti_inflammatory_diclo$concentration, Anti_inflammatory_diclo$inhibition,
+     pch=16, 
+     xlab = "concentration", ylab = "inhibition", cex.lab = 1.3, 
+     col = "black")
+lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
+abline(h = 50, col = 'blue')
+points(x = IC50, y = 50, col = "red", pch = 16)
+
 
