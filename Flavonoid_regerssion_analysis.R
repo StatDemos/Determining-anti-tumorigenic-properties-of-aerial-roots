@@ -3,6 +3,7 @@
 library(readxl)
 library(tidyverse)
 library(broom)
+library(rootSolve)
 
 # read data set
 
@@ -29,6 +30,8 @@ plot(Flav$concentration, Flav$absorption_blank_diff,
      col = "blue")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
+
+
 
 #####################################################################
 # Best Model = Order 1
@@ -59,5 +62,10 @@ ggplot(model1_fitresid, aes(sample = .std.resid)) + stat_qq() +
 
 # shapiro wilk
 shapiro.test(model1_fitresid$.std.resid)
+
+
+
+
+
 
 
