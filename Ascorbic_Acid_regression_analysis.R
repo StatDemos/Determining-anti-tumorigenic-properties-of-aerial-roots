@@ -1,6 +1,7 @@
 # Loading libraries
 library(readxl)
 library(tidyverse)
+library(broom)
 
 # Loading dataset
 DPPH_Ascorbic_Acid <- read_excel("Datasets/DPPH Ascorbic Acid.xlsx")
@@ -46,7 +47,7 @@ convalues <- seq(0, 100, 5)
 predictedcounts <- predict(AA_regression_model2,
                            list(concentration=convalues, concentration2=convalues^2))
 plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
-     pch=16, 
+     pch=16, ylim = c(0,100),
      xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
      col = "blue")
 
@@ -68,23 +69,40 @@ predictedcounts <- predict(AA_regression_model3,
                            list(concentration=convalues, concentration2=convalues^2,
                                 concentration3=convalues^3))
 plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
-     pch=16, 
+     pch=16, ylim = c(0,100),
      xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
      col = "blue")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
 
+#####################################################################
+# Best Model = Order 3
+#####################################################################
 
 
+###################### Residuals Analysis ###########################
 
+model3_fitresid <- augment(AA_regression_model3)
 
+# residual vs. fitted
+ggplot(model3_fitresid, aes(x = .fitted, y = .std.resid)) + geom_point() + 
+  geom_hline(yintercept = 0, color = "red", size = 1) + 
+  labs(title = "Residual plot against the fitted values", x = "Fitted values", 
+       y = "Residuals")
 
+# histogram of residuals
+ggplot(model3_fitresid, aes(x = .std.resid)) + geom_histogram(aes(y = ..density..), color = "black",
+                                          fill = "white") +
+  geom_density(alpha = 0.5, fill = "purple") + ggtitle("Histogram of residuals") +
+  xlab("Residuals") + ylab("Density")
 
+# QQ plot
+ggplot(model3_fitresid, aes(sample = .std.resid)) + stat_qq() + 
+  stat_qq_line(color = "red") +
+  labs(title = "Normal probability plot of residuals", x = "Expected", 
+       y = "Residuals")
 
-
-
-
-
-
+# shapiro wilk
+shapiro.test(model3_fitresid$.std.resid)
 
 
