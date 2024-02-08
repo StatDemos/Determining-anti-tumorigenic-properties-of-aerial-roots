@@ -1,6 +1,7 @@
 # Load libraries
 library(tidyverse)
 library(broom)
+library(rootSolve)
 
 # Load data set
 DPPH <- readxl::read_xlsx("Datasets/DPPH.xlsx")
@@ -63,7 +64,6 @@ shapiro.test(model_fitresid$.std.resid)
 
 
 # Calculation of IC50 value
-library(rootSolve)
 
 x = seq(0,400,by=0.01)
 
