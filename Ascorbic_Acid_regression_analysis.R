@@ -2,6 +2,7 @@
 library(readxl)
 library(tidyverse)
 library(broom)
+library(rootSolve)
 
 
 # Loading dataset
@@ -112,9 +113,9 @@ shapiro.test(model3_fitresid$.std.resid)
 ###################### Calculating IC50 ########################### 
 
 # 0 = 4.301 - 50 + 5.436concentration - 0.1094concentration^2 + 0.0006273concentration^3
+# 0 = - 45.699 + 5.436concentration - 0.1094concentration^2 + 0.0006273concentration^3
 
 
-library(rootSolve)
 
 
 # writing the function
