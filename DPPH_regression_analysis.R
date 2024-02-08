@@ -12,6 +12,12 @@ DPPH %>%
   geom_point() +
   geom_smooth()
 
+DPPH %>%
+  ggplot(aes(x=concentration, y=`scavenging activity`)) +
+  geom_point() +
+  labs(title = "Scatter plot of concentration vs scavenging activity") +
+  xlab("concentration (µg/ml)")
+
 # Regression model
 # 1st order
 DPPH_regression_model1 <- lm(`scavenging activity` ~ concentration, data = DPPH)
@@ -31,7 +37,9 @@ predictedcounts <- predict(DPPH_regression_model2, list(concentration=convalues,
 
 plot(DPPH$concentration, DPPH$`scavenging activity`,
      pch=16, 
-     xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
+     xlab = "concentration (µg/ml)", ylab = "scavenging activity",
+     main = "Fitted regression line",
+     cex.lab = 1.3, 
      col = "blue")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
@@ -85,7 +93,9 @@ points(x = IC50, y = rep(0, length(IC50)), col = "red", pch = 16, cex = 1.5)
 # Plot the IC50 value in the graph
 plot(DPPH$concentration, DPPH$`scavenging activity`,
      pch=16, ylim = c(0,100),
-     xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
+     xlab = "concentration (µg/ml)", ylab = "scavenging activity", 
+     main = "Fitted regression line and IC50 value",
+     cex.lab = 1.3, 
      col = "black")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
