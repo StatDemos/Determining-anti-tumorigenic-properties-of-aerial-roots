@@ -11,7 +11,10 @@ DPPH_Ascorbic_Acid <- read_excel("Datasets/DPPH Ascorbic Acid.xlsx")
 
 # Scatter plot
 DPPH_Ascorbic_Acid %>% ggplot(aes(x = concentration, 
-           y = `scavenging activity`)) + geom_point() + geom_smooth()
+           y = `scavenging activity`)) + geom_point() + 
+  labs(title = "Scatter plot of concentration vs scavenging activity", 
+       x = "concentration(µg/ml)")
+           # + geom_smooth()
 
 
 # Regression model
@@ -70,9 +73,10 @@ predictedcounts <- predict(AA_regression_model3,
                            list(concentration=convalues, concentration2=convalues^2,
                                 concentration3=convalues^3))
 plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
-     pch=16, ylim = c(0,100),
-     xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
+     pch=16, ylim = c(0,100), main = "Fitted regression line",
+     xlab = "concentration(µg/ml)", ylab = "scavenging activity", cex.lab = 1.3, 
      col = "blue") + stat_regline_equation(label.x=30, label.y=310)
+
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
 
@@ -134,8 +138,8 @@ IC50
 
 # Plot the IC50 value in the graph
 plot(DPPH_Ascorbic_Acid$concentration, DPPH_Ascorbic_Acid$`scavenging activity`,
-     pch=16, ylim = c(0,100),
-     xlab = "concentration", ylab = "scavenging activity", cex.lab = 1.3, 
+     pch=16, ylim = c(0,100), main = "Fitted regression line and IC50 value",
+     xlab = "concentration(µg/ml)", ylab = "scavenging activity", cex.lab = 1.3, 
      col = "black")
 
 lines(convalues, predictedcounts, col = "darkgreen", lwd = 3)
