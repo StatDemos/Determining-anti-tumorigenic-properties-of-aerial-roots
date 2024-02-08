@@ -86,15 +86,23 @@ model3_fitresid <- augment(AA_regression_model3)
 
 # residual vs. fitted
 ggplot(model3_fitresid, aes(x = .fitted, y = .std.resid)) + geom_point() + 
-  geom_hline(yintercept = 0, color = "red", size = 1)
+  geom_hline(yintercept = 0, color = "red", size = 1) + 
+  labs(title = "Residual plot against the fitted values", x = "Fitted values", 
+       y = "Residuals")
 
 # histogram of residuals
-ggplot(model3_fitresid, aes(x = .std.resid)) + geom_histogram(color = "white") +
-  ggtitle("Histogram of residuals")
+ggplot(model3_fitresid, aes(x = .std.resid)) + geom_histogram(aes(y = ..density..), color = "black",
+                                          fill = "white") +
+  geom_density(alpha = 0.5, fill = "purple") + ggtitle("Histogram of residuals") +
+  xlab("Residuals") + ylab("Density")
 
 # QQ plot
-ggplot(model3_fitresid, aes(sample = .std.resid)) + stat_qq() + stat_qq_line() +
-ggtitle("QQ plot of residuals")
+ggplot(model3_fitresid, aes(sample = .std.resid)) + stat_qq() + 
+  stat_qq_line(color = "red") +
+  labs(title = "Normal probability plot of residuals", x = "Expected", 
+       y = "Residuals")
 
 # shapiro wilk
 shapiro.test(model3_fitresid$.std.resid)
+
+
