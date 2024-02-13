@@ -47,13 +47,14 @@ ggplot(df, aes(x = concentration  , y = `% mortality`)) +
 summary(MM.model)
 
 ###################################################################
-
+#correct method for non linear regression
 
 mm.model.nls <- nls(`% mortality`~Vm*concentration/(K+concentration), data=df, 
                     start = list(K=max(df$`% mortality`)/2, 
                                  Vm=max(df$`% mortality`)))
 summary(mm.model.nls)
-
+ 
+# calculate R-sq. value
 sse <- mm.model.nls$m$deviance()
 sse
 
@@ -65,9 +66,9 @@ percent_variation_explained
 
 #########################################################################
 
-plot(df$concentration, df$`% mortality`, xlab="concentration (µg/ml)", ylab = "mortality rate")
+plot(df$concentration, df$`% mortality`, xlab="concentration (µg/ml)", ylab = "mortality rate",col = "blue",pch = 16 )
 lines(df$concentration, 
-      predict(mm.model.nls, df),col=2)
+      predict(mm.model.nls, df),col= "darkgreen",lwd = 3, main = "Fitted regression line")
 
 # Calculation of IC50 value
 
