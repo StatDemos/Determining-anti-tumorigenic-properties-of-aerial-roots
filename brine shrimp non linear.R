@@ -48,7 +48,17 @@ summary(MM.model)
 
 ###################################################################
 
-mm.model.nls <- nls(`% mortality~Vm*concentration/(K+concentration), data=df, 
+
+mm.model.nls <- nls(`% mortality`~Vm*concentration/(K+concentration), data=df, 
                     start = list(K=max(df$`% mortality`)/2, 
                                  Vm=max(df$`% mortality`)))
 summary(mm.model.nls)
+
+sse <- mm.model.nls$m$deviance()
+sse
+
+sse <- mm.model.nls$m$deviance()
+null <- lm(`% mortality`~1, df)
+sst <- data.frame(summary.aov(null)[[1]])$Sum.Sq
+percent_variation_explained = 100*(sst-sse)/sst
+percent_variation_explained
