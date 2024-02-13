@@ -62,3 +62,9 @@ null <- lm(`% mortality`~1, df)
 sst <- data.frame(summary.aov(null)[[1]])$Sum.Sq
 percent_variation_explained = 100*(sst-sse)/sst
 percent_variation_explained
+
+#########################################################################
+
+plot(df$concentration, df$`% mortality`, xlab="conc", ylab = "mortality rate")
+lines(df$concentration, 
+      predict(mm.model.nls, df),col=2)
