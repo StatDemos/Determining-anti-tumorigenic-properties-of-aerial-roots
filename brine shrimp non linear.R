@@ -65,6 +65,36 @@ percent_variation_explained
 
 #########################################################################
 
-plot(df$concentration, df$`% mortality`, xlab="conc", ylab = "mortality rate")
+plot(df$concentration, df$`% mortality`, xlab="concentration (µg/ml)", ylab = "mortality rate")
 lines(df$concentration, 
       predict(mm.model.nls, df),col=2)
+
+# Calculation of IC50 value
+
+x = seq(0,1000,by=0.01)
+
+f = function(x){
+  (101.2*x)/(234.8+x)- 50
+}
+
+plot(x, f(x), type = 'l')
+abline(h=0, col="blue")
+
+IC50 = uniroot.all(f, c(0, 1000))
+IC50
+# 229.2696
+
+# graphing the roots
+points(x = IC50, y = rep(0, length(roots)), col = "red", pch = 16, cex = 1.5)
+
+# Plot the IC50 value in the graph
+plot(df$concentration, df$`% mortality`,
+     pch=16, ylim = c(0,100),
+     xlab = "concentration(µg/ml)", ylab = "mortality rate", main = "Fitted regression line and IC50 value",
+     cex.lab = 1.3, 
+     col = "black")
+lines(df$concentration, 
+      predict(mm.model.nls, df),col= "darkgreen",lwd = 3)
+abline(h = 50, col = 'blue')
+points(x = IC50, y = 50, col = "red", pch = 16)
+
