@@ -28,7 +28,7 @@ View(df)
 # scatter plot
 
 ggplot(df, aes(x= concentration, y= `% mortality`)) + 
-  geom_point() 
+  geom_point() + geom_smooth()
 
 library(drc)
 library(ggplot2)
